@@ -168,3 +168,5 @@ MonoBehaviour:
   splitColor: {r: 0.4, g: 1, b: 0.5, a: 0.8}
   corruptedColor: {r: 0.2, g: 0.1, b: 0.1, a: 0.95}
   momentumColor: {r: 1, g: 0.65, b: 0.2, a: 0.85}
+  popSound: {fileID: 8300000, guid: f9853617829a3a94588dcea3b3c53f84, type: 3}
+  containSound: {fileID: 8300000, guid: f9853617829a3a94588dcea3b3c53f84, type: 3}

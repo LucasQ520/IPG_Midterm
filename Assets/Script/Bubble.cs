@@ -39,6 +39,11 @@ public class Bubble : MonoBehaviour
     public Color corruptedColor = new Color(0.2f, 0.1f, 0.1f, 0.95f);
     public Color momentumColor = new Color(1f, 0.65f, 0.2f, 0.85f);
 
+    [Header("Audio")]
+    public AudioClip popSound;
+    public AudioClip containSound;
+    public float soundVolume = 0.8f;
+
     private Rigidbody rb;
     private Renderer rend;
     private bool isPopping;
@@ -259,6 +264,9 @@ public class Bubble : MonoBehaviour
     private IEnumerator ContainRoutine()
     {
         isContained = true;
+
+        PlaySound(containSound);
+
         rb.linearVelocity = Vector3.zero;
         rb.isKinematic = true;
 
@@ -279,12 +287,14 @@ public class Bubble : MonoBehaviour
             GameManager.Instance.AddScore(scoreValue);
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.2f);
     }
 
     private IEnumerator PopRoutine(bool giveScore)
     {
         isPopping = true;
+
+        PlaySound(popSound);
 
         if (giveScore && GameManager.Instance != null)
         {
@@ -308,9 +318,16 @@ public class Bubble : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.2f);
     }
 
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, transform.position, soundVolume);
+        }
+    }
     private void TriggerSpecialEffect()
     {
         Collider[] hits;
@@ -394,7 +411,7 @@ public class Bubble : MonoBehaviour
                 GameManager.Instance.DamageReactor(reactorDamage);
             }
 
-            Destroy(gameObject);
+            Destroy(gameObject, 0.2f);
         }
     }
 
